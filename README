@@ -1,0 +1,33 @@
+****************
+* MLEPowerRanker
+* 11/25/2019
+* Oscar 'AcePocket' Filson
+**************** 
+
+OVERVIEW:
+
+ MLEPowerRanker is a program design to take in a specially formatted csv file and use the various inputs
+ to calculate an unbiased ranking of all teams in the league. It ranks each team in a combination of the following attributes:
+ Wins, Momentum, Stats, Players, and Strength of Schedule. 
+ It can be made to output various lists with various numbers explaining the ranking, but is initially set up to just output a csv. 
+ You can change the output by uncommenting the lines of code in PowerRanker.java
+ 
+INCLUDED FILES:
+
+ * PowerRanker.java - source file
+ * League.java - source file
+ * Team.java - source file
+ * TeamSorter.java - source file
+ * Player.java - source file
+ * Week.java - source file
+ * README - this file
+ * ChampLeagueSoS.csv - data file
+ 
+ COMPILING AND RUNNING:
+
+ From the directory containing all source files, compile the test
+ class (and all dependent classes) with the command:
+ $ javac ListTester.java
+ 
+ Run the compiled SetTester class with the command:
+ $ java ListTester
