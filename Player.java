@@ -50,10 +50,10 @@ public class Player {
 	
 	/**
 	 * Sets the salary of the player, which is based of ranked MMR
-	 * @param teamOnePlayerOneSalary
+	 * @param salary
 	 */
-	public void setSalary(double teamOnePlayerOneSalary) {
-		this.salary = teamOnePlayerOneSalary;
+	public void setSalary(double salary) {
+		this.salary = salary;
 	}
 	
 	/**
