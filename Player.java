@@ -7,7 +7,6 @@ public class Player {
 	
 	private String name;
 	private double playerScore;
-	private double salary;
 	private int goals;
 	private int assists;
 	private int saves;
@@ -38,22 +37,6 @@ public class Player {
 	
 	public double getPlayerScore() {
 		return playerScore;
-	}
-	
-	/**
-	 * Returns the salary of the player
-	 * @return salary
-	 */
-	public double getSalary() {
-		return salary;
-	}
-	
-	/**
-	 * Sets the salary of the player, which is based of ranked MMR
-	 * @param salary
-	 */
-	public void setSalary(double salary) {
-		this.salary = salary;
 	}
 	
 	/**
@@ -174,15 +157,13 @@ public class Player {
 	public void calculateAdjustedSalary(int teamWins) {
 		double adjSalary = 0.0;
 		double MVPR = 0.0;
-		//double shotPercentage = 0.0;
 		double winPercentage = 0.0;
 		double teamWinPercentage = 0.0;
 		
 		MVPR = (((double) goals) + ((double) assists*.75) + ((double) saves*.6) + ((double) shots/3))/((double) gamesPlayed);
-		//shotPercentage = ((double) goals)/((double) shots);
 		winPercentage = ((double) wins)/ ((double) gamesPlayed);
 		teamWinPercentage = ((double) wins)/ ((double) teamWins);
-		adjSalary = (double) (salary*teamWinPercentage*winPercentage) + MVPR;
+		adjSalary = (double) (MVPR*teamWinPercentage*winPercentage);
 		
 		this.setAdjustedSalary(adjSalary);
 	}

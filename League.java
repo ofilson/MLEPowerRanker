@@ -63,8 +63,8 @@ public class League {
 		double shotPercentageMax = 0.0;
 		double goalsAgainstMin = 999.0;
 		double goalsAgainstMax = 0;
-		double playerSalaryMax = 0.0;
-		double playerSalaryMin = 999.0;
+		double playerAdjSalaryMax = 0.0;
+		double playerAdjSalaryMin = 999.0;
 		
 		for(Team team : teams) {
 			team.totalsCalculations();
@@ -94,11 +94,11 @@ public class League {
 				goalsAgainstMin = team.getTotalGoalsAgainst();
 			} for(Player p: team.getPlayers()) {
 				p.calculateAdjustedSalary(team.getActualWins());
-				if(p.getAdjustedSalary() > playerSalaryMax) {
-					playerSalaryMax = p.getAdjustedSalary();
+				if(p.getAdjustedSalary() > playerAdjSalaryMax) {
+					playerAdjSalaryMax = p.getAdjustedSalary();
 				}
-				if(p.getAdjustedSalary() < playerSalaryMin) {
-					playerSalaryMin = p.getAdjustedSalary();
+				if(p.getAdjustedSalary() < playerAdjSalaryMin) {
+					playerAdjSalaryMin = p.getAdjustedSalary();
 				}
 			}
 		} 
@@ -115,8 +115,8 @@ public class League {
 			team.setShotPercentageMin(shotPercentageMin);
 			team.setGoalsAgainstMax(goalsAgainstMax);
 			team.setGoalsAgainstMin(goalsAgainstMin);
-			team.setPlayerSalaryMax(playerSalaryMax);
-			team.setPlayerSalaryMin(playerSalaryMin);
+			team.setPlayerSalaryMax(playerAdjSalaryMax);
+			team.setPlayerSalaryMin(playerAdjSalaryMin);
 		}
 	}
 	
@@ -218,49 +218,6 @@ public class League {
 	 * Loads the data necessary to perform the program's various functions from the csv file provided.
 	 * @param filepath - the filepath of the csv being used. 
 	 */
-//	public void loadScheduleFromCSV(String filepath) {
-//		File file = new File(filepath);
-//		if(file.exists() && file.isFile()) {
-//			try {
-//				Scanner filescan = new Scanner(file);
-//				
-//				while(filescan.hasNextLine()) {
-//					String line = filescan.nextLine();
-//					Scanner linescan = new Scanner(line);
-//					linescan.useDelimiter(",");
-//					
-//					Team team = new Team(linescan.next());
-//					int currentWeek = linescan.nextInt();
-//					setCurrentWeek(currentWeek);
-//					team.setCurrentWeek(currentWeek);
-//					int totalScore = linescan.nextInt();
-//					
-//					for(int i = 0; i < currentWeek; i++) {
-//						int wins = linescan.nextInt();
-//						int goals = linescan.nextInt();
-//						int assists = linescan.nextInt();
-//						int saves = linescan.nextInt();
-//						int shots = linescan.nextInt();
-//						int goalsAgainst = linescan.nextInt();
-//						Week result = new Week(wins,goals,assists,saves,shots,goalsAgainst);
-//						team.addResult(result);
-//					}
-//					this.addTeam(team);
-//					linescan.close();
-//				}
-//				this.setMaxAndMins();
-//				this.calculations();
-//				filescan.close();
-//			} catch (FileNotFoundException e) {
-//				System.out.println("File not found: " + filepath);
-//			}
-//		}
-//	}
-	
-	/**
-	 * Loads the data necessary to perform the program's various functions from the csv file provided.
-	 * @param filepath - the filepath of the csv being used. 
-	 */
 	public void loadScheduleFromCSV(String filepath) {
 		File file = new File(filepath);
 		if(file.exists() && file.isFile()) {
@@ -276,13 +233,11 @@ public class League {
 					String teamOneName = linescan.next();
 					int teamOneWins = linescan.nextInt();
 					String teamOnePlayerOneName = linescan.next();
-					double teamOnePlayerOneSalary = linescan.nextDouble();
 					int teamOnePlayerOneGoals = linescan.nextInt();
 					int teamOnePlayerOneAssists = linescan.nextInt();
 					int teamOnePlayerOneSaves = linescan.nextInt();
 					int teamOnePlayerOneShots = linescan.nextInt();
 					String teamOnePlayerTwoName = linescan.next();
-					double teamOnePlayerTwoSalary = linescan.nextDouble();
 					int teamOnePlayerTwoGoals = linescan.nextInt();
 					int teamOnePlayerTwoAssists = linescan.nextInt();
 					int teamOnePlayerTwoSaves = linescan.nextInt();
@@ -290,13 +245,11 @@ public class League {
 					String teamTwoName = linescan.next();
 					int teamTwoWins = linescan.nextInt();
 					String teamTwoPlayerOneName = linescan.next();
-					double teamTwoPlayerOneSalary = linescan.nextDouble();
 					int teamTwoPlayerOneGoals = linescan.nextInt();
 					int teamTwoPlayerOneAssists = linescan.nextInt();
 					int teamTwoPlayerOneSaves = linescan.nextInt();
 					int teamTwoPlayerOneShots = linescan.nextInt();
 					String teamTwoPlayerTwoName = linescan.next();
-					double teamTwoPlayerTwoSalary = linescan.nextDouble();
 					int teamTwoPlayerTwoGoals = linescan.nextInt();
 					int teamTwoPlayerTwoAssists = linescan.nextInt();
 					int teamTwoPlayerTwoSaves = linescan.nextInt();
@@ -324,7 +277,6 @@ public class League {
 										player.addShots(teamOnePlayerOneShots);
 										player.addGamesPlayed();
 										player.addWins(teamOneWins);
-										player.setSalary(teamOnePlayerOneSalary);
 										count = 1;
 									} 
 								}
@@ -336,7 +288,6 @@ public class League {
 									playerOne.addShots(teamOnePlayerOneShots);
 									playerOne.addGamesPlayed();
 									playerOne.addWins(teamOneWins);
-									playerOne.setSalary(teamOnePlayerOneSalary);
 									team.addPlayer(playerOne);
 								}
 								count = 0;
@@ -348,7 +299,6 @@ public class League {
 										player.addShots(teamOnePlayerTwoShots);
 										player.addGamesPlayed();
 										player.addWins(teamOneWins);
-										player.setSalary(teamOnePlayerTwoSalary);
 										count = 1;
 									} 
 								}
@@ -360,7 +310,6 @@ public class League {
 									playerTwo.addShots(teamOnePlayerTwoShots);
 									playerTwo.addGamesPlayed();
 									playerTwo.addWins(teamOneWins);
-									playerTwo.setSalary(teamOnePlayerTwoSalary);
 									team.addPlayer(playerTwo);
 								}
 							}
@@ -381,7 +330,6 @@ public class League {
 						playerOne.addShots(teamOnePlayerOneShots);
 						playerOne.addGamesPlayed();
 						playerOne.addWins(teamOneWins);
-						playerOne.setSalary(teamOnePlayerOneSalary);
 						Player playerTwo = new Player(teamOnePlayerTwoName);
 						playerTwo.addGoals(teamOnePlayerTwoGoals);
 						playerTwo.addAssists(teamOnePlayerTwoAssists);
@@ -389,7 +337,6 @@ public class League {
 						playerTwo.addShots(teamOnePlayerTwoShots);
 						playerTwo.addGamesPlayed();
 						playerTwo.addWins(teamOneWins);
-						playerTwo.setSalary(teamOnePlayerTwoSalary);
 						team.setCurrentWeek(week);
 						team.addPlayer(playerOne);
 						team.addPlayer(playerTwo);
@@ -421,7 +368,6 @@ public class League {
 										player.addShots(teamTwoPlayerOneShots);
 										player.addGamesPlayed();
 										player.addWins(teamTwoWins);
-										player.setSalary(teamTwoPlayerOneSalary);
 										count = 1;
 									} 
 								}
@@ -433,7 +379,6 @@ public class League {
 									playerOne.addShots(teamTwoPlayerOneShots);
 									playerOne.addGamesPlayed();
 									playerOne.addWins(teamTwoWins);
-									playerOne.setSalary(teamTwoPlayerOneSalary);
 									team.addPlayer(playerOne);
 								}
 								count = 0;
@@ -445,7 +390,6 @@ public class League {
 										player.addShots(teamTwoPlayerTwoShots);
 										player.addGamesPlayed();
 										player.addWins(teamTwoWins);
-										player.setSalary(teamTwoPlayerTwoSalary);
 										count = 1;
 									} 
 								}
@@ -457,7 +401,6 @@ public class League {
 									playerTwo.addShots(teamTwoPlayerTwoShots);
 									playerTwo.addGamesPlayed();
 									playerTwo.addWins(teamTwoWins);
-									playerTwo.setSalary(teamTwoPlayerTwoSalary);
 									team.addPlayer(playerTwo);
 								}
 							}
@@ -478,7 +421,6 @@ public class League {
 						playerOne.addShots(teamTwoPlayerOneShots);
 						playerOne.addGamesPlayed();
 						playerOne.addWins(teamTwoWins);
-						playerOne.setSalary(teamTwoPlayerOneSalary);
 						Player playerTwo = new Player(teamTwoPlayerTwoName);
 						playerTwo.addGoals(teamTwoPlayerTwoGoals);
 						playerTwo.addAssists(teamTwoPlayerTwoAssists);
@@ -486,7 +428,6 @@ public class League {
 						playerTwo.addShots(teamTwoPlayerTwoShots);
 						playerTwo.addGamesPlayed();
 						playerTwo.addWins(teamTwoWins);
-						playerTwo.setSalary(teamTwoPlayerTwoSalary);
 						team.setCurrentWeek(week);
 						team.addPlayer(playerOne);
 						team.addPlayer(playerTwo);
